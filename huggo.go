@@ -32,7 +32,7 @@ func build(src, dest string) error {
 	return run("/home/private/bin/hugo", "--source", src, "--destination", dest)
 }
 
-// Run a command in the shell.
+// Run a command in the shell and print the combined output.
 func run(prog string, args ...string) error {
 	log.Printf("Running command %q with args: %v", prog, args)
 	cmd := exec.Command(prog, args...)
@@ -41,7 +41,7 @@ func run(prog string, args ...string) error {
 	return err
 }
 
-// Remove recursively removes a directory path.  Use with care!
+// Remove a directory path recursively. Use with care!
 func remove(d string) {
 	log.Printf("Removing directory: %s", d)
 	err := os.RemoveAll(d)
@@ -60,7 +60,7 @@ func fullpath(d string) string {
 	return name
 }
 
-// Publish a site.
+// Publish the site in the given repo path to a specified output directory.
 func publish(repoPath, destPath string) error {
 	var err error
 
@@ -84,12 +84,13 @@ func publish(repoPath, destPath string) error {
 }
 
 func main() {
-	// rely on cwd being set to "." when post-receive hook invoked
-	// should potentially accept as a parameter if we're invoked from a script
-	const repoPath = "."
+	const (
+		// rely on cwd being set to "." when post-receive hook invoked
+		repoPath = "."
 
-	// rely on hardcoded output directory; should probably accept a parameter
-	const destPath = "/home/public"
+		// NearlyFreeSpeech output directory
+		destPath = "/home/public"
+	)
 
 	err := publish(repoPath, destPath)
 	if err != nil {
