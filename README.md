@@ -8,7 +8,7 @@ The following installation assumes Golang is installed on your remote server.
 
   1. Install Hugo on your remote server inside `$HOME/bin`: <https://github.com/gohugoio/hugo/releases>
   2. Create a bare git repo: `git init --bare /path/to/example.com.git`
-  3. Compile this tool into your hooks directory: `go build -o /path/to/example.com.git/hooks/post-receive huggo.go`
+  3. Compile this tool into your hooks directory: `go build -o /path/to/example.com.git/hooks/post-receive huggo.go` (if Go is not installed on remote server, you may be able to cross-compile and upload the resulting binary)
   4. Add the remote to your local git setup: `git remote add deploy username@host:/path/to/example.com.git`
   5. When you're ready to deploy the master branch (swap out branch as necessary), run `git push deploy master`. Don't forget to push to any other remotes (e.g., GitHub) to ensure your source code is centralized!
 
